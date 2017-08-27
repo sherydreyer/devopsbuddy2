@@ -1,0 +1,31 @@
+package com.devopsbuddy2.backend.service;
+
+/**
+ * Created by Sheryl Dreyer on 2017/08/27.
+ */
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
+
+/**
+ * Real implementation of an email service.
+ *
+ * Created by tedonema on 22/03/2016.
+ */
+public class SmtpEmailService extends AbstractEmailService {
+
+    /** The application logger */
+    private static final Logger LOG = LoggerFactory.getLogger(SmtpEmailService.class);
+
+    @Autowired
+    private MailSender mailSender;
+
+    @Override
+    public void sendGenericEmailMessage(SimpleMailMessage message) {
+        LOG.debug("Sending email for: {}", message);
+        mailSender.send(message);
+        LOG.info("Email sent.");
+    }
+}
