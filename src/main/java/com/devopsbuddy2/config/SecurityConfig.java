@@ -41,7 +41,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
+        List<String> activeProfiles = Arrays.asList(env.getActiveProfiles());
+        if (activeProfiles.contains("dev")) {
+            http.csrf().disable();
+            http.headers().frameOptions().disable();
+        }
 
         http
                 .authorizeRequests()
