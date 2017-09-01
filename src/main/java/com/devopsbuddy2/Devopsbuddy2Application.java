@@ -32,7 +32,11 @@ private static final Logger LOG = LoggerFactory.getLogger(Devopsbuddy2Applicatio
 	}
 	@Override
 	public void run(String... args) throws Exception {
-		User user = UserUtils.createBasicUser();
+
+		String username = "proUser";
+		String email = "proUser@devopsbuddy.com";
+
+		User user = UserUtils.createBasicUser(username, email);
 		Set<UserRole> userRoles = new HashSet<>();
 		LOG.debug("creating user with username{}", user.getUsername());
 		userRoles.add(new UserRole(user, new Role(RolesEnum.PRO)));
