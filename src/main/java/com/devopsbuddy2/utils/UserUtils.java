@@ -6,12 +6,12 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Created by tedonema on 30/03/2016.
  */
-public class UsersUtils {
+public class UserUtils {
 
     /**
      * Non instantiable.
      */
-    private UsersUtils() {
+    private UserUtils() {
         throw new AssertionError("Non instantiable");
     }
 

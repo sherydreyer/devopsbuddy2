@@ -18,5 +18,13 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(readOnly = true)
 public interface UserRepository extends CrudRepository<User, Long> {
 
+    /**
+     * Returns a User given a username or null if not found.
+     * @param username The username
+     * @return a User given a username or null if not found.
+     */
+    User findByUsername(String username);
+
+
 
 }

@@ -6,14 +6,13 @@ import com.devopsbuddy2.backend.persistence.domain.backend.UserRole;
 import com.devopsbuddy2.backend.service.UserService;
 import com.devopsbuddy2.enums.PlansEnum;
 import com.devopsbuddy2.enums.RolesEnum;
-import com.devopsbuddy2.utils.UsersUtils;
+import com.devopsbuddy2.utils.UserUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -33,10 +32,10 @@ private static final Logger LOG = LoggerFactory.getLogger(Devopsbuddy2Applicatio
 	}
 	@Override
 	public void run(String... args) throws Exception {
-		User user = UsersUtils.createBasicUser();
+		User user = UserUtils.createBasicUser();
 		Set<UserRole> userRoles = new HashSet<>();
 		LOG.debug("creating user with username{}", user.getUsername());
-		userRoles.add(new UserRole(user, new Role(RolesEnum.BASIC)));
+		userRoles.add(new UserRole(user, new Role(RolesEnum.PRO)));
 		LOG.info("User{}created", user.getUsername());
 		userService.createUser(user, PlansEnum.PRO, userRoles);
 

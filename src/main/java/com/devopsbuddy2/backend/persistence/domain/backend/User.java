@@ -14,7 +14,7 @@ import java.util.Set;
  * Created by tedonema on 28/03/2016.
  */
 @Entity
-public class User implements Serializable {
+public class User implements Serializable, UserDetails {
 
     /**
      * The Serial Version UID for Serializable classes.
@@ -86,6 +86,21 @@ public class User implements Serializable {
 
     public String getUsername() {
         return username;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
     }
 
 
@@ -165,6 +180,13 @@ public class User implements Serializable {
         this.enabled = enabled;
     }
 
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Set<GrantedAuthority> authorities = new HashSet<>();
+        userRoles.forEach(ur -> authorities.add(new Authority(ur.getRole().getName())));
+        return authorities;
+    }
 
     public String getPassword() {
         return password;
