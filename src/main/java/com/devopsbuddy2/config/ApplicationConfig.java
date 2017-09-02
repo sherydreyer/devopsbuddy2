@@ -9,6 +9,7 @@ import org.springframework.boot.orm.jpa.EntityScan;
 
 import org.springframework.context.annotation.Configuration;
 
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
@@ -16,6 +17,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableJpaRepositories(basePackages = "com.devopsbuddy2.backend.persistence.repositories")
 @EntityScan(basePackages = "com.devopsbuddy2.backend.persistence.domain.backend")
 @EnableTransactionManagement
-public  class ApplicationConfig {
+@PropertySource("file:///${user.home}/.devopsbuddy2/application-common.properties")
+@PropertySource("file:///${user.home}/.devopsbuddy2/stripe.properties")
+public class ApplicationConfig {
 
 }
