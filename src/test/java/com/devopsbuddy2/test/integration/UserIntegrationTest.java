@@ -36,16 +36,7 @@ import java.util.Set;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Devopsbuddy2Application.class)
 
-public class RepositoriesIntegrationTest {
-
-    @Autowired
-    private PlanRepository planRepository;
-
-    @Autowired
-    private RoleRepository roleRepository;
-
-    @Autowired
-    private UserRepository userRepository;
+public class UserIntegrationTest extends AbstractIntegrationTest{
 
     @Rule
     public TestName testName = new TestName();
@@ -107,16 +98,16 @@ public class RepositoriesIntegrationTest {
     }
 
     //------------------------> Private methods
-    private Plan createPlan(PlansEnum plansEnum) {
+    protected  Plan createPlan(PlansEnum plansEnum) {
 
         return new Plan(plansEnum);
     }
 
-    private Role createRole(RolesEnum rolesEnum) {
+    protected Role createRole(RolesEnum rolesEnum) {
         return new Role(rolesEnum);
     }
 
-    private User createUser(String username, String email) {
+    protected User createUser(String username, String email) {
         Plan basicPlan = createPlan(PlansEnum.BASIC);
         planRepository.save(basicPlan);
 
