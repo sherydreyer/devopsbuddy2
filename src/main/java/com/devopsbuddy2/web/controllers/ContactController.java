@@ -34,7 +34,7 @@ public class ContactController {
     private static final String CONTACT_US_VIEW_NAME = "contact/contact";
 
     @Autowired
-    private EmailService emailService;
+    public EmailService emailService;
 
 
     @RequestMapping(value = "/contact", method = RequestMethod.GET)

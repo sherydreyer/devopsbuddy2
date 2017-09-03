@@ -1,4 +1,4 @@
-package com.devopsbuddy2.web.i18n;
+package com.devopsbuddy2.backend.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

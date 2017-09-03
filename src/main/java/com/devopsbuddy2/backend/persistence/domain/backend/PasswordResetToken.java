@@ -8,9 +8,6 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-/**
- * Created by Sheryl Dreyer on 02/09/2017.
- */
 @Entity
 public class PasswordResetToken implements Serializable {
 
@@ -35,7 +32,7 @@ public class PasswordResetToken implements Serializable {
 
     @Column(name = "expiry_date")
     @Convert(converter = LocalDateTimeAttributeConverter.class)
-    private LocalDateTime  expiryDate;
+    private LocalDateTime expiryDate;
 
     /**
      * Default constructor.
