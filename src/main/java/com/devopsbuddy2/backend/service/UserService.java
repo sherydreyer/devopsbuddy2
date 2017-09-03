@@ -4,6 +4,7 @@ package com.devopsbuddy2.backend.service;
  * Created by Sheryl Dreyer on 2017/08/31.
  */
 
+import com.devopsbuddy2.backend.persistence.domain.backend.PasswordResetToken;
 import com.devopsbuddy2.backend.persistence.domain.backend.Plan;
 import com.devopsbuddy2.backend.persistence.domain.backend.User;
 import com.devopsbuddy2.backend.persistence.domain.backend.UserRole;
@@ -11,6 +12,8 @@ import com.devopsbuddy2.backend.persistence.repositories.PlanRepository;
 import com.devopsbuddy2.backend.persistence.repositories.RoleRepository;
 import com.devopsbuddy2.backend.persistence.repositories.UserRepository;
 import com.devopsbuddy2.enums.PlansEnum;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -34,6 +37,8 @@ public class UserService {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
+    /** The application logger */
+    private static final Logger LOG = LoggerFactory.getLogger(UserService.class);
 
     @Transactional
     public User createUser(User user, PlansEnum plansEnum, Set<UserRole> userRoles) {
@@ -60,4 +65,12 @@ public class UserService {
         return user;
 
     }
+    @Transactional
+    public void updateUserPassword(long userId, String password) {
+        password = passwordEncoder.encode(password);
+        userRepository.updateUserPassword(userId, password);
+        LOG.debug("Password updated successfully for user id {} ", userId);
+
+    }
+
 }
