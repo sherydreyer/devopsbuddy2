@@ -1,29 +1,31 @@
 package com.devopsbuddy2.test.unit;
 
-/**
- * Created by Sheryl Dreyer on 2017/09/03.
- */
-
 import com.devopsbuddy2.backend.persistence.domain.backend.User;
 import com.devopsbuddy2.utils.UserUtils;
 import com.devopsbuddy2.web.controllers.ForgotMyPasswordController;
+import com.devopsbuddy2.web.domain.frontend.BasicAccountPayload;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.mock.web.MockHttpServletRequest;
+import uk.co.jemos.podam.api.PodamFactory;
+import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 import java.util.UUID;
 
-
+/**
+ * Created by tedonema on 15/04/2016.
+ */
 public class UserUtilsUnitTest {
 
     private MockHttpServletRequest mockHttpServletRequest;
 
+    private PodamFactory podamFactory;
 
     @Before
     public void init() {
         mockHttpServletRequest = new MockHttpServletRequest();
-
+        podamFactory = new PodamFactoryImpl();
     }
 
     @Test
@@ -43,5 +45,23 @@ public class UserUtilsUnitTest {
 
     }
 
+    @Test
+    public void mapWebUserToDomainUser() {
 
+        BasicAccountPayload webUser = podamFactory.manufacturePojoWithFullData(BasicAccountPayload.class);
+        webUser.setEmail("sheryldreyer2@gmail.com");
+
+        User user = UserUtils.fromWebUserToDomainUser(webUser);
+        Assert.assertNotNull(user);
+
+        Assert.assertEquals(webUser.getUsername(), user.getUsername());
+        Assert.assertEquals(webUser.getPassword(), user.getPassword());
+        Assert.assertEquals(webUser.getFirstName(), user.getFirstName());
+        Assert.assertEquals(webUser.getLastName(), user.getLastName());
+        Assert.assertEquals(webUser.getEmail(), user.getEmail());
+        Assert.assertEquals(webUser.getPhoneNumber(), user.getPhoneNumber());
+        Assert.assertEquals(webUser.getCountry(), user.getCountry());
+        Assert.assertEquals(webUser.getDescription(), user.getDescription());
+
+    }
 }

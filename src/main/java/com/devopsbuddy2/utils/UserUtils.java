@@ -1,6 +1,7 @@
 package com.devopsbuddy2.utils;
 import com.devopsbuddy2.backend.persistence.domain.backend.User;
 import com.devopsbuddy2.web.controllers.ForgotMyPasswordController;
+import com.devopsbuddy2.web.domain.frontend.BasicAccountPayload;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,13 +11,18 @@ import javax.servlet.http.HttpServletRequest;
 public class UserUtils {
 
     /**
+     * Non instantiable.
+     */
+    private UserUtils() {
+        throw new AssertionError("Non instantiable");
+    }
+
+    /**
      * Creates a user with basic attributes set.
      * @param username The username.
      * @param email The email.
      * @return A User entity
      */
-
-
     public static User createBasicUser(String username, String email) {
 
         User user = new User();
@@ -30,10 +36,9 @@ public class UserUtils {
         user.setEnabled(true);
         user.setDescription("A basic user");
         user.setProfileImageUrl("https://blabla.images.com/basicuser");
+
         return user;
     }
-
-
 
     /**
      * Builds and returns the URL to reset the user password.
@@ -42,8 +47,7 @@ public class UserUtils {
      * @param token The token
      * @return the URL to reset the user password.
      */
-    public static String createPasswordResetUrl
-            (HttpServletRequest request, long userId, String token) {
+    public static String createPasswordResetUrl(HttpServletRequest request, long userId, String token) {
         String passwordResetUrl =
                 request.getScheme() +
                         "://" +
@@ -58,5 +62,20 @@ public class UserUtils {
                         token;
 
         return passwordResetUrl;
+    }
+
+    public static <T extends BasicAccountPayload> User fromWebUserToDomainUser(T frontendPayload) {
+        User user = new User();
+        user.setUsername(frontendPayload.getUsername());
+        user.setPassword(frontendPayload.getPassword());
+        user.setFirstName(frontendPayload.getFirstName());
+        user.setLastName(frontendPayload.getLastName());
+        user.setEmail(frontendPayload.getEmail());
+        user.setPhoneNumber(frontendPayload.getPhoneNumber());
+        user.setCountry(frontendPayload.getCountry());
+        user.setEnabled(true);
+        user.setDescription(frontendPayload.getDescription());
+
+        return user;
     }
 }
