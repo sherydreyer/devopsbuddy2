@@ -245,5 +245,4 @@ function main() {
             $('#signupForm').formValidation('revalidateField', 'phoneNumber');
         });
 
-
 }
