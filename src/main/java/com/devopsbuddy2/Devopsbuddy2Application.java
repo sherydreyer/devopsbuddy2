@@ -3,6 +3,7 @@ package com.devopsbuddy2;
 import com.devopsbuddy2.backend.persistence.domain.backend.Role;
 import com.devopsbuddy2.backend.persistence.domain.backend.User;
 import com.devopsbuddy2.backend.persistence.domain.backend.UserRole;
+import com.devopsbuddy2.backend.service.PlanService;
 import com.devopsbuddy2.backend.service.UserService;
 import com.devopsbuddy2.enums.PlansEnum;
 import com.devopsbuddy2.enums.RolesEnum;
@@ -27,6 +28,9 @@ private static final Logger LOG = LoggerFactory.getLogger(Devopsbuddy2Applicatio
 @Autowired
 	private UserService userService;
 
+	@Autowired
+	private PlanService planService;
+
 	@Value("${webmaster.username}")
 	private String webmasterUsername;
 
@@ -44,6 +48,10 @@ private static final Logger LOG = LoggerFactory.getLogger(Devopsbuddy2Applicatio
 	}
 	@Override
 	public void run(String... args) throws Exception {
+
+		LOG.info("Creating Basic and Pro plans in the database...");
+		planService.createPlan(PlansEnum.BASIC.getId());
+		planService.createPlan(PlansEnum.PRO.getId());
 
 		User user = UserUtils.createBasicUser(webmasterUsername, webmasterEmail);
 		user.setPassword(webmasterPassword);
